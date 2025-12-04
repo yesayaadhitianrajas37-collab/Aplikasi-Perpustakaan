@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h4 class="card-title">Data Buku (Terurut berdasarkan Judul)</h4>
+  <div class="table-responsive mt-3">
+    <table class="table table-borderless table-dark">
+      <thead>
+        <tr><th>Judul</th><th>Penulis</th><th>Tahun</th></tr>
+      </thead>
+      <tbody>
+        {% for b in books %}
+          <tr>
+            <td>{{ b.title }}</td>
+            <td>{{ b.author }}</td>
+            <td>{{ b.year }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="3">Belum ada buku.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

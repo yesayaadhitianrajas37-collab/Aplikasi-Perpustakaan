@@ -1,0 +1,11 @@
+<h2>Data Buku</h2>
+<table border="1">
+    <tr><th>Judul</th><th>Penulis</th><th>Tahun</th></tr>
+    {% for b in buku %}
+        <tr>
+            <td>{{ b.judul }}</td>
+            <td>{{ b.penulis }}</td>
+            <td>{{ b.tahun }}</td>
+        </tr>
+    {% endfor %}
+</table>

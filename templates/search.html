@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h4 class="card-title">Cari Buku</h4>
+  <form method="POST" class="d-flex gap-2 mt-3">
+    <input class="form-control" name="keyword" placeholder="Masukkan judul atau penulis..." value="{{ keyword }}">
+    <button class="btn btn-glass">Cari</button>
+    <a class="btn btn-outline-light" href="{{ url_for('list_books') }}">Reset</a>
+  </form>
+
+  {% if results is not none %}
+    <h6 class="mt-4">Hasil Pencarian ({{ results|length }}):</h6>
+    <ul class="list-group mt-2">
+      {% for r in results %}
+        <li class="list-group-item bg-transparent border-0 p-2">
+          <strong>{{ r.title }}</strong> — <small>{{ r.author }} ({{ r.year }})</small>
+        </li>
+      {% else %}
+        <li class="list-group-item bg-transparent border-0">Tidak ditemukan.</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+  <h4 class="card-title">Data Buku</h4>
+  <div class="table-responsive mt-3">
+    <table class="table table-borderless table-dark">
+      <thead>
+        <tr>
+          <th>Judul</th>
+          <th>Penulis</th>
+          <th>Tahun</th>
+          <th>Status</th>
+          <th style="width:240px">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in books %}
+          <tr>
+            <td>{{ b.title }}</td>
+            <td>{{ b.author }}</td>
+            <td>{{ b.year }}</td>
+            <td>
+              {% if b.status == "Tersedia" %}
+                <span class="badge bg-success">Tersedia</span>
+              {% else %}
+                <span class="badge bg-warning text-dark">Dipinjam</span>
+              {% endif %}
+            </td>
+
+            <td>
+              <!-- Edit -->
+              <a class="btn btn-sm btn-glass" href="{{ url_for('edit_book', book_id=b.id) }}">Edit</a>
+
+              <!-- Hapus -->
+              <form method="POST" action="{{ url_for('delete_book', book_id=b.id) }}" 
+                    style="display:inline-block" 
+                    onsubmit="return confirm('Hapus buku ini?');">
+                <button class="btn btn-sm btn-danger">Hapus</button>
+              </form>
+
+              <!-- PINJAM / KEMBALIKAN -->
+              {% if b.status == "Tersedia" %}
+                <a href="{{ url_for('borrow_book', book_id=b.id) }}" 
+                   class="btn btn-sm btn-success">Pinjam</a>
+              {% else %}
+                <a href="{{ url_for('return_book', book_id=b.id) }}" 
+                   class="btn btn-sm btn-warning text-dark">Kembalikan</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="5">Belum ada buku.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
